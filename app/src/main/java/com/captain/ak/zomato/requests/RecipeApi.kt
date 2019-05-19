@@ -1,5 +1,6 @@
 package com.captain.ak.zomato.requests
 
+import com.captain.ak.zomato.requests.response.CategoryResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
