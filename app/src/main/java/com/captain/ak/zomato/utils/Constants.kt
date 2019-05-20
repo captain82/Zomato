@@ -4,7 +4,7 @@ class Constants {
 
     companion object {
 
-        val BASE_URL:String = "https://developers.zomato.com"
+        val BASE_URL:String = "https://developers.zomato.com/"
 
         val NETWORK_TIMEOUT:Int =3000
 

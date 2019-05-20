@@ -10,10 +10,14 @@ class CategoryResponse {
     @Expose
     private val categories: List<Categories>? = null
 
+    fun getRecipes(): List<Categories>? {
+        return categories
+    }
+
 
     override fun toString(): String {
         return "CategoriesResponse{" +
-                ""
+                "categories="+categories+'}'
     }
 
 }
