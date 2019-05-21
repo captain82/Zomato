@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.captain.ak.zomato.models.Categories
+import com.captain.ak.zomato.models.Category
 import com.captain.ak.zomato.repository.RecipeRepository
 
 class RecipeViewModel: ViewModel() {
@@ -17,7 +18,7 @@ class RecipeViewModel: ViewModel() {
         mDidRetreiveRecipe=false
     }
 
-    public fun getRecipe(): LiveData<List<Categories>>?
+    public fun getRecipe(): LiveData<List<Category>>?
     {
         return mRecipeRepository.getRecipe()
     }

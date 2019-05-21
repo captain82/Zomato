@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.captain.ak.zomato.models.Categories
+import com.captain.ak.zomato.models.Category
 import com.captain.ak.zomato.viewModels.RecipeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,16 +23,17 @@ class MainActivity : AppCompatActivity() {
 
         mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java)
         subscribeObservers()
+        mRecipeViewModel!!.searchRecipesApi()
+
     }
 
     private fun subscribeObservers() {
 
         Log.i("check" , "working1")
-        mRecipeViewModel!!.searchRecipesApi()
         mRecipeViewModel!!.getRecipe()
-        mRecipeViewModel!!.getRecipe()!!.observe(this, Observer<List<Categories>> { recipe ->
+        mRecipeViewModel!!.getRecipe()!!.observe(this, Observer<List<Category>> { recipe ->
             if (recipe != null) {
-                Log.i("check" , recipe.toString())
+                Log.i("check" , recipe.get(0).categories.category_name)
 
                 if (recipe.equals(mRecipeViewModel!!.getRecipe())) {
                     mRecipeViewModel!!.setRetrievedRecipe(true)

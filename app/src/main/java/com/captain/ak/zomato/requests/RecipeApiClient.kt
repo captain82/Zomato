@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.captain.ak.zomato.AppExecutors
 import com.captain.ak.zomato.models.Categories
+import com.captain.ak.zomato.models.Category
 import com.captain.ak.zomato.requests.response.CategoryResponse
 import com.captain.ak.zomato.utils.Constants
 import com.captain.ak.zomato.utils.Constants.Companion.NETWORK_TIMEOUT
@@ -29,14 +30,14 @@ class RecipeApiClient {
 
     }
 
-    var mRecipes:MutableLiveData<List<Categories>>? = null
+    var mRecipes:MutableLiveData<List<Category>>? = null
     private var mRetrieveRecipesRunnable: RetreiveRecipesRunnable? = null
 
     constructor() {
         this.mRecipes = MutableLiveData()
     }
 
-    private fun getRecipe():LiveData<List<Categories>>?
+    fun getRecipe():LiveData<List<Category>>?
     {
         return mRecipes
     }
@@ -70,13 +71,16 @@ class RecipeApiClient {
 
         override fun run() {
             try {
+
+
                 var response = getRecipes().execute()
                 if (cancelRequest)
                     return
                 if (response.code() == 200)
                 {
-
-                    val list = ArrayList((response.body() as CategoryResponse).getRecipes())
+                    Log.i("Run",response.body()!!.getRecipes().toString())
+                    val list = (response.body()!!.getRecipes())
+                    //Log.i("list" , list!!.size.toString())
                     mRecipes!!.postValue(list)
                 }
                 else
@@ -96,7 +100,7 @@ class RecipeApiClient {
         {
             return ServiceGenerator.
                 recipeApi.
-                searchCategories(Constants.API_KEY)
+                searchCategories()
         }
 
         private fun cancelRequest() {

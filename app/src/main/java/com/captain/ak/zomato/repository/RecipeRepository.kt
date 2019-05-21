@@ -5,6 +5,7 @@ import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.captain.ak.zomato.models.Categories
+import com.captain.ak.zomato.models.Category
 import com.captain.ak.zomato.requests.RecipeApiClient
 
 class RecipeRepository {
@@ -24,7 +25,7 @@ class RecipeRepository {
 
     private var mRecipeApiClient = RecipeApiClient()
 
-    private val mRecipes = MediatorLiveData<List<Categories>>()
+    private val mRecipes = MediatorLiveData<List<Category>>()
 
     constructor() {
         this.mRecipeApiClient = RecipeApiClient.getInstance()
@@ -36,8 +37,8 @@ class RecipeRepository {
         val recipeApiSource = mRecipeApiClient.mRecipes
 
         recipeApiSource?.let {
-            mRecipes.addSource(it, object : Observer<List<Categories>> {
-                override fun onChanged(t: List<Categories>?) {
+            mRecipes.addSource(it, object : Observer<List<Category>> {
+                override fun onChanged(t: List<Category>?) {
 
                     if (t!=null)
                     {
@@ -54,7 +55,7 @@ class RecipeRepository {
         }
     }
 
-    public fun getRecipe(): LiveData<List<Categories>>? {
+    public fun getRecipe(): LiveData<List<Category>>? {
         return mRecipeApiClient.getRecipe()
     }
 

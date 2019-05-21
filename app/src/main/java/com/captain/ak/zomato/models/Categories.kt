@@ -2,8 +2,15 @@ package com.captain.ak.zomato.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-data class Categories(val id:Int,val name:String):Parcelable {
+data class Categories(@SerializedName("id")
+                      @Expose
+                      val category_id:Int,
+                      @SerializedName("name")
+                      @Expose
+                      val category_name:String):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()
@@ -11,14 +18,14 @@ data class Categories(val id:Int,val name:String):Parcelable {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-        parcel.writeString(name)
+        parcel.writeInt(category_id)
+        parcel.writeString(category_name)
     }
 
     override fun toString(): String {
         return "categories{"+
-                "id='"+id+'\''+
-                ", name='"+name+'}'
+                "id='"+category_id+'\''+
+                ", name='"+category_name+'}'
     }
 
     override fun describeContents(): Int {
