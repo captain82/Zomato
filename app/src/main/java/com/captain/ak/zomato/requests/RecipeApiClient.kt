@@ -6,7 +6,9 @@ import android.util.Log
 import com.captain.ak.zomato.AppExecutors
 import com.captain.ak.zomato.models.Categories
 import com.captain.ak.zomato.models.Category
+import com.captain.ak.zomato.models.Restaurants
 import com.captain.ak.zomato.requests.response.CategoryResponse
+import com.captain.ak.zomato.requests.response.SearchResponse
 import com.captain.ak.zomato.utils.Constants
 import com.captain.ak.zomato.utils.Constants.Companion.NETWORK_TIMEOUT
 import retrofit2.Call
@@ -30,28 +32,35 @@ class RecipeApiClient {
 
     }
 
-    var mRecipes:MutableLiveData<List<Category>>? = null
+    // *************************for getting all categories and categories data******************************************
+    var mRecipes: MutableLiveData<List<Category>>? = null
     private var mRetrieveRecipesRunnable: RetreiveRecipesRunnable? = null
+
+
+    //**************************for getting the restaurants and restaurants detail*************************************
+    var mSearch: MutableLiveData<List<Restaurants>>? = null
+    private var mRetreiveSearchRunnable: RetreiveSearchRunnable? = null
 
     constructor() {
         this.mRecipes = MutableLiveData()
+        this.mSearch = MutableLiveData()
     }
 
-    fun getRecipe():LiveData<List<Category>>?
-    {
+    fun getRecipe(): LiveData<List<Category>>? {
         return mRecipes
     }
 
-    fun searchRecipesApi()
-    {
+    fun getSearch(): LiveData<List<Restaurants>>? {
+        return mSearch
+    }
 
-        if(mRetrieveRecipesRunnable!=null)
-        {
-            mRetrieveRecipesRunnable=null
+    fun searchRecipesApi() {
+
+        if (mRetrieveRecipesRunnable != null) {
+            mRetrieveRecipesRunnable = null
         }
         mRetrieveRecipesRunnable = RetreiveRecipesRunnable()
-        val handler = AppExecutors.
-            getInstance().networkIO().submit(mRetrieveRecipesRunnable)
+        val handler = AppExecutors.getInstance().networkIO().submit(mRetrieveRecipesRunnable)
 
         AppExecutors.getInstance().networkIO().schedule(object : Runnable {
             override fun run() {
@@ -61,8 +70,22 @@ class RecipeApiClient {
 
     }
 
-    inner class RetreiveRecipesRunnable:Runnable
-    {
+    fun searchRestaurantsApi() {
+        if (mRetreiveSearchRunnable != null) {
+            mRetreiveSearchRunnable = null
+        }
+        mRetreiveSearchRunnable = RetreiveSearchRunnable()
+        val handler = AppExecutors.getInstance().networkIO().submit(mRetreiveSearchRunnable)
+
+        AppExecutors.getInstance().networkIO().schedule(object : Runnable {
+            override fun run() {
+                handler.cancel(true)
+            }
+
+        }, NETWORK_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
+    }
+
+    inner class RetreiveRecipesRunnable : Runnable {
         internal var cancelRequest: Boolean = false
 
         constructor() {
@@ -71,36 +94,27 @@ class RecipeApiClient {
 
         override fun run() {
             try {
-
-
                 var response = getRecipes().execute()
                 if (cancelRequest)
                     return
-                if (response.code() == 200)
-                {
-                    Log.i("Run",response.body()!!.getRecipes().toString())
+                if (response.code() == 200) {
+                    Log.i("Run", response.body()!!.getRecipes().toString())
                     val list = (response.body()!!.getRecipes())
                     //Log.i("list" , list!!.size.toString())
                     mRecipes!!.postValue(list)
-                }
-                else
-                {
-                    val error:String = response.errorBody()!!.string()
-                    Log.e(TAG,"run: "+error)
+                } else {
+                    val error: String = response.errorBody()!!.string()
+                    Log.e(TAG, "run: " + error)
                     mRecipes!!.postValue(null)
                 }
-            }catch (e:IOException)
-            {
+            } catch (e: IOException) {
                 e.printStackTrace()
                 mRecipes!!.postValue(null)
             }
         }
 
-        fun getRecipes():Call<CategoryResponse>
-        {
-            return ServiceGenerator.
-                recipeApi.
-                searchCategories()
+        fun getRecipes(): Call<CategoryResponse> {
+            return ServiceGenerator.recipeApi.searchCategories()
         }
 
         private fun cancelRequest() {
@@ -111,5 +125,44 @@ class RecipeApiClient {
 
     }
 
+    inner class RetreiveSearchRunnable : Runnable {
+        internal var cancelRequest: Boolean = false
+
+        constructor() {
+            this.cancelRequest = false
+        }
+
+        override fun run() {
+            try {
+                val queryParams = "dum"
+
+                var response = getSearchRes(queryParams).execute()
+                if (cancelRequest)
+                    return
+                if (response.code() == 200) {
+                    Log.i("Run1", response.body()!!.restaurants!!.get(0).restaurant!!.name)
+                    val list = response.body()!!.getSearchRest()
+                    mSearch!!.postValue(list)
+                } else {
+                    val error: String = response.errorBody()!!.string()
+                    Log.e(TAG, "run: " + error)
+                    mRecipes!!.postValue(null)
+                }
+            }catch (e:IOException)
+            {
+                e.printStackTrace()
+                mSearch!!.postValue(null)
+            }
+        }
+
+        fun getSearchRes( queryParams:String):Call<SearchResponse>
+        {
+            return ServiceGenerator.recipeApi.searchApi(queryParams)
+        }
+
+    }
+
 
 }
+
+
