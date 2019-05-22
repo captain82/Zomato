@@ -16,8 +16,8 @@ public interface RecipeApi {
 
     //for getting all details of restaurant using cityid or lattitude and longitude and collection id
     @Headers("user_key: 327e75c31ca03dbb55cbabe4257acfa9")
-    @GET("api/v2.1/categories")
-    fun searchApi(@QueryMap queryParameters:Map<String,String>):Call<SearchResponse>
+    @GET("api/v2.1/search")
+    fun searchApi(@Query("q") queryParameters:String):Call<SearchResponse>
 
 
 
