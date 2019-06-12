@@ -33,7 +33,12 @@ class RecyclerAdapter(val resList:List<Restaurants>): RecyclerView.Adapter<Recyc
     override fun onBindViewHolder(p0: RecyclerViewHolder, p1: Int) {
 
         p0.binding.restaurants =resList.get(p1)
-        Picasso.get().load(resList.get(p1).restaurant!!.thumbnail).into(p0.binding.thumbImageView)
+        if(resList.get(p1).restaurant!!.thumbnail.isEmpty())
+        {
+
+        }else {
+            Picasso.get().load(resList.get(p1).restaurant!!.thumbnail).into(p0.binding.thumbImageView)
+        }
 
     }
 
