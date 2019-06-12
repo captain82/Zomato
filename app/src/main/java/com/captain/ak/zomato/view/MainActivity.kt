@@ -1,14 +1,14 @@
-package com.captain.ak.zomato
+package com.captain.ak.zomato.view
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.util.Log
-import com.captain.ak.zomato.models.Categories
-import com.captain.ak.zomato.models.Category
+import com.captain.ak.zomato.R
 import com.captain.ak.zomato.models.Restaurants
+import com.captain.ak.zomato.view.adapter.RecyclerAdapter
 import com.captain.ak.zomato.viewModels.RecipeViewModel
 import com.captain.ak.zomato.viewModels.RestaurantsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private var mRecipeViewModel:RecipeViewModel? = null
 
     private var mRestaurantsViewModel:RestaurantsViewModel?= null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +57,11 @@ class MainActivity : AppCompatActivity() {
             if (t!=null)
             {
                 Log.i("Check" , t.get(0).restaurant!!.name)
+
+                val adapter = RecyclerAdapter(t)
+                recyclerView.adapter = adapter
+
+
 
                 if (t.equals(mRestaurantsViewModel!!.getRest())){
                     mRestaurantsViewModel!!.setRetrievedRest(true)
