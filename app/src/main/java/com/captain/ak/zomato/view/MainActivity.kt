@@ -9,6 +9,7 @@ import android.util.Log
 import com.captain.ak.zomato.R
 import com.captain.ak.zomato.models.Restaurants
 import com.captain.ak.zomato.view.adapter.RecyclerAdapter
+import com.captain.ak.zomato.view.adapter.RecyclerAdapter1
 import com.captain.ak.zomato.viewModels.RecipeViewModel
 import com.captain.ak.zomato.viewModels.RestaurantsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             {
                 Log.i("Check" , t.get(0).restaurant!!.name)
 
-                val adapter = RecyclerAdapter(t)
+                val adapter = RecyclerAdapter1(t)
                 recyclerView.adapter = adapter
 
 
