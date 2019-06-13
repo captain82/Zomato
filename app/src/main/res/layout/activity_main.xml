@@ -28,7 +28,7 @@
            android:textStyle="bold"
 
            android:textColor="#000"
-   /></android.support.v7.widget.CardView>>
+   /></android.support.v7.widget.CardView>
 
    <android.support.v7.widget.RecyclerView
            android:layout_width="match_parent"
