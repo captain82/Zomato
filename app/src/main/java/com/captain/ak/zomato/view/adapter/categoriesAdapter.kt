@@ -4,10 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.captain.ak.zomato.R
-import com.captain.ak.zomato.models.Restaurants
+import com.squareup.picasso.Picasso
 
-class categoriesAdapter(val resList:List<Restaurants>): RecyclerView.Adapter<categoriesAdapter.CategoryViewHolder>() {
+class categoriesAdapter(val imageList: Array<Int>): RecyclerView.Adapter<categoriesAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CategoryViewHolder {
 
@@ -19,15 +20,20 @@ class categoriesAdapter(val resList:List<Restaurants>): RecyclerView.Adapter<cat
     }
 
     override fun getItemCount(): Int {
-        return resList.size
+        return imageList.size
     }
 
     override fun onBindViewHolder(p0: CategoryViewHolder, p1: Int) {
+
+        Picasso.get().load(imageList[p1]).into(p0.image)
+
+
     }
 
     class CategoryViewHolder(val view:View):RecyclerView.ViewHolder(view)
     {
 
+        var image = view.findViewById<ImageView>(R.id.image)
 
     }
 }

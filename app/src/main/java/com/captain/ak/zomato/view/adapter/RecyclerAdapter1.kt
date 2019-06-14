@@ -1,7 +1,6 @@
 package com.captain.ak.zomato.view.adapter
 
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,16 +11,18 @@ import com.android.databinding.library.baseAdapters.BR
 import com.captain.ak.zomato.R
 import com.captain.ak.zomato.databinding.CategoriesRecyclerViewBinding
 import com.captain.ak.zomato.databinding.RecyclerSingleBinding
-import com.captain.ak.zomato.models.Restaurant
 import com.captain.ak.zomato.models.Restaurants
-import com.squareup.picasso.Picasso
 
-class RecyclerAdapter1(val resList:List<Restaurants>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecyclerAdapter1(
+    val resList: List<Restaurants>,
+    val imageList: Array<Int>
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object
     {
         private const val TYPE_HEADER = 0
-        private const val TYPE_DETAIL = 1
+        private const val TYPE_DETAIL = 2
+        private const val TYPE_SEARCH = 1
     }
 
 
@@ -39,10 +40,15 @@ class RecyclerAdapter1(val resList:List<Restaurants>): RecyclerView.Adapter<Recy
                 DetailViewHolder(DataBindingUtil.inflate(layoutInflater, R.layout.recycler_single, p0, false))
 
             }
+            TYPE_SEARCH -> {
+                SearchViewHolder(LayoutInflater.from(p0.context).inflate(R.layout.searchbar,p0,false))
+            }
             else -> throw IllegalArgumentException()
 
         }
     }
+
+
 
     override fun getItemCount(): Int {
         return resList.size
@@ -53,8 +59,9 @@ class RecyclerAdapter1(val resList:List<Restaurants>): RecyclerView.Adapter<Recy
         val element = resList.get(p1)
 
         when (p0) {
-            is HeaderViewHolder -> p0.bind(resList)
+            is HeaderViewHolder -> p0.bind(imageList)
             is DetailViewHolder -> p0.bind(element)
+
 
         }
     }
@@ -63,7 +70,11 @@ class RecyclerAdapter1(val resList:List<Restaurants>): RecyclerView.Adapter<Recy
 
         return if (position == 0) {
             TYPE_HEADER
-        } else {
+        } else if(position==1){
+            TYPE_SEARCH
+        }
+        else
+        {
             TYPE_DETAIL
         }
     }
@@ -71,8 +82,8 @@ class RecyclerAdapter1(val resList:List<Restaurants>): RecyclerView.Adapter<Recy
 
 
     inner class HeaderViewHolder(private val binding: CategoriesRecyclerViewBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(response: List<Restaurants>) = with(binding) {
-        binding.categoryRecyclerView.adapter = categoriesAdapter(response)
+    fun bind(imageList: Array<Int>) = with(binding) {
+        binding.categoryRecyclerView.adapter = categoriesAdapter(imageList)
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(binding.categoryRecyclerView.context,LinearLayout.HORIZONTAL,false)
 
 
@@ -85,6 +96,9 @@ class RecyclerAdapter1(val resList:List<Restaurants>): RecyclerView.Adapter<Recy
             executePendingBindings()
 
         }
+    }
+
+    inner class SearchViewHolder(inflate: View?) : RecyclerView.ViewHolder(inflate!!) {
     }
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/fb</color>
-    <color name="colorPrimaryDark">@color/fb</color>
+    <color name="colorPrimary">@color/green1</color>
+    <color name="colorPrimaryDark">@color/green1</color>
     <color name="colorAccent">#000000</color>
     <color name="light_gray">#dbdbdb</color>
     <color name="gray">#7e7e7e</color>
@@ -30,6 +30,12 @@
     <color name="blue_black_dark">#13171d</color>
     <color name="blue_black_light">#516179</color>
     <color name="blue_grey_light">#A5B4C8</color>
-    <color name="orange">#FFA500</color>
-    <color name="yellow">#fff44f</color>
+    <color name="orange">#C8FFA500</color>
+    <color name="yellow">#96FFF44F</color>
+
+    <color name="green1">#4CAF50</color>
+    <color name="red">#B5F44336</color>
+    <color name="red1">#DCA30F03</color>
+
+
 </resources>
