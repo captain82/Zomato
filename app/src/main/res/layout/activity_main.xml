@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,38 +7,80 @@
         android:orientation="vertical"
         android:layout_height="match_parent"
         tools:context=".view.MainActivity">
+    
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="50sp"
+                  android:orientation="horizontal"
+                  android:weightSum="2"
+    >
+        <LinearLayout android:layout_width="200dp"
+                      android:layout_height="match_parent">
 
-   <android.support.v7.widget.CardView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           app:cardCornerRadius="15dp"
-           app:cardElevation="0dp"
-           android:layout_marginBottom="5dp"
-           android:layout_marginStart="2dp"
-           android:layout_marginEnd="2dp"
-           android:layout_marginTop="10dp"
-   >
-   <EditText
-           android:id="@+id/edit_text"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:hint="Park Street"
-           android:padding="5dp"
-           android:background="#f5f8fa"
-           android:textStyle="bold"
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="LunchBox"
+                      android:drawablePadding="5dp"
+                      android:drawableStart="@drawable/ic_lunchbox"
+                      android:fontFamily="@font/futur"
+                      android:textColor="@color/black_effective"
+                      android:textSize="18dp"
+                      android:layout_marginStart="20dp"
+                      android:layout_gravity="center_vertical"
+            />
 
-           android:textColor="#000"
-   /></android.support.v7.widget.CardView>
+        </LinearLayout>
 
-   <android.support.v7.widget.RecyclerView
-           android:layout_width="match_parent"
-           android:id="@+id/recyclerView"
-           android:layout_marginBottom="15dp"
-           app:layoutManager="LinearLayoutManager"
-           android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:gravity="end"
 
-   </android.support.v7.widget.RecyclerView>
+        >
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Offers"
+                      android:fontFamily="@font/futur"
+                      android:textColor="@color/black_effective"
+                      android:drawablePadding="5dp"
+                      android:textSize="15dp"
+                      android:layout_marginEnd="30dp"
+                      android:drawableStart="@drawable/ic_discount"
+                      android:layout_gravity="center_vertical"
+            />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_marginBottom="49dp"
+                 android:layout_marginTop="50sp"
+    >
+
+        <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/recyclerView"
+                app:layoutManager="LinearLayoutManager"
+                android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </FrameLayout>
 
 
 
-</LinearLayout>
+
+
+    <android.support.design.widget.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            app:menu="@menu/menu"
+            android:layout_gravity="bottom"
+            app:labelVisibilityMode="unlabeled"
+
+    >
+
+    </android.support.design.widget.BottomNavigationView>
+
+
+</FrameLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:id="@+id/nearme"
+          android:title="Near me"
+          android:icon="@drawable/ic_location_on_black_24dp"
+    >
+    </item>
+
+    <item android:id="@+id/explore"
+          android:title="Explore"
+          android:icon="@drawable/ic_search"
+    >
+    </item>
+
+    <item android:id="@+id/cart"
+          android:title="Cart"
+          android:icon="@drawable/ic_shopping_cart_black_24dp"
+    >
+    </item>
+    <item android:id="@+id/account"
+          android:title="Account"
+          android:icon="@drawable/ic_person_black_24dp"
+    >
+    </item>
+
+
+
+</menu>
