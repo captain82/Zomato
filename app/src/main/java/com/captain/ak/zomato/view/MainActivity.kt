@@ -1,18 +1,26 @@
 package com.captain.ak.zomato.view
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
+import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.captain.ak.zomato.R
 import com.captain.ak.zomato.models.Restaurants
+import com.captain.ak.zomato.utils.Constants
 import com.captain.ak.zomato.view.adapter.RecyclerAdapter1
 import com.captain.ak.zomato.viewModels.RecipeViewModel
 import com.captain.ak.zomato.viewModels.RestaurantsViewModel
+import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,9 +33,16 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
@@ -59,6 +74,11 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+
+
+
 
     private fun subscribeObservers(imageList: Array<Int>) {
 
