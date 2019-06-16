@@ -34,7 +34,7 @@
                   android:layout_marginTop="20dp"
                   android:layout_gravity="center_horizontal"
                   android:textColor="@color/green1"
-                  android:fontFamily="@font/futura_medium_bt"
+                  android:fontFamily="@font/futura_book_font"
         />
 
     </LinearLayout>

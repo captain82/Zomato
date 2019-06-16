@@ -4,15 +4,12 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.captain.ak.zomato.AppExecutors
-import com.captain.ak.zomato.models.Categories
 import com.captain.ak.zomato.models.Category
 import com.captain.ak.zomato.models.Restaurants
 import com.captain.ak.zomato.requests.response.CategoryResponse
 import com.captain.ak.zomato.requests.response.SearchResponse
-import com.captain.ak.zomato.utils.Constants
 import com.captain.ak.zomato.utils.Constants.Companion.NETWORK_TIMEOUT
 import retrofit2.Call
-import retrofit2.Response
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -134,9 +131,13 @@ class RecipeApiClient {
 
         override fun run() {
             try {
-                val queryParams = "dum"
+                val queryParams1 = "22.4804864"
+                val queryParams2 = "88.39168"
+                val queryParams3 = "cost"
 
-                var response = getSearchRes(queryParams).execute()
+
+
+                var response = getSearchRes(queryParams1,queryParams2,queryParams3).execute()
                 if (cancelRequest)
                     return
                 if (response.code() == 200) {
@@ -155,9 +156,9 @@ class RecipeApiClient {
             }
         }
 
-        fun getSearchRes( queryParams:String):Call<SearchResponse>
+        fun getSearchRes(queryParams1: String, queryParams2: String, queryParams3: String):Call<SearchResponse>
         {
-            return ServiceGenerator.recipeApi.searchApi(queryParams)
+            return ServiceGenerator.recipeApi.searchApi(queryParams1,queryParams2,queryParams3)
         }
 
     }
