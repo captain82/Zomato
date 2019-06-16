@@ -2,6 +2,8 @@ package com.captain.ak.zomato.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -49,6 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         // mRecipeViewModel!!.searchRecipesApi()
 
+        lunchboxLayout.setOnClickListener{
+            val intent = Intent(this,ProfileActivity::class.java)
+            startActivity(intent)
+
+        }
+
 
     }
 
@@ -74,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-                val adapter = RecyclerAdapter1(t,imageList)
+                val adapter = RecyclerAdapter1(t,imageList,this)
                 recyclerView.adapter = adapter
 
 
@@ -88,4 +96,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+
 }

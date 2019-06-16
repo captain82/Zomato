@@ -1,5 +1,7 @@
 package com.captain.ak.zomato.view.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,10 +14,11 @@ import com.captain.ak.zomato.R
 import com.captain.ak.zomato.databinding.CategoriesRecyclerViewBinding
 import com.captain.ak.zomato.databinding.RecyclerSingleBinding
 import com.captain.ak.zomato.models.Restaurants
+import com.captain.ak.zomato.view.DetailActivity
 
 class RecyclerAdapter1(
     val resList: List<Restaurants>,
-    val imageList: Array<Int>
+    val imageList: Array<Int>,val context: Context
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object
@@ -58,9 +61,19 @@ class RecyclerAdapter1(
 
         val element = resList.get(p1)
 
+
+
+
         when (p0) {
-            is HeaderViewHolder -> p0.bind(imageList)
-            is DetailViewHolder -> p0.bind(element)
+            is HeaderViewHolder -> {
+                p0.bind(imageList)
+
+            }
+            is DetailViewHolder -> {
+                p0.bind(element)
+                p0.navigate(p0.adapterPosition,resList.get(p1).restaurant!!.url)
+
+            }
 
 
         }
@@ -85,6 +98,7 @@ class RecyclerAdapter1(
     fun bind(imageList: Array<Int>) = with(binding) {
         binding.categoryRecyclerView.adapter = categoriesAdapter(imageList)
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(binding.categoryRecyclerView.context,LinearLayout.HORIZONTAL,false)
+        binding.executePendingBindings()
 
 
     }
@@ -93,8 +107,19 @@ class RecyclerAdapter1(
     inner class DetailViewHolder(private val binding: RecyclerSingleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(response: Restaurants) = with(binding) {
             binding.setVariable(BR.restaurants,response)
-            executePendingBindings()
+            binding.executePendingBindings()
 
+        }
+
+        fun navigate(adapterPosition: Int, url: String)
+        {
+            binding.nameTextView.setOnClickListener {
+
+                val intent = Intent(context,DetailActivity::class.java)
+                intent.putExtra("url",url)
+                context.startActivity(intent)
+
+            }
         }
     }
 
