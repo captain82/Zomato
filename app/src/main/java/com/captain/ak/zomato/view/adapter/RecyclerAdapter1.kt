@@ -113,7 +113,7 @@ class RecyclerAdapter1(
 
         fun navigate(adapterPosition: Int, url: String)
         {
-            binding.thumbImageView.setOnClickListener {
+            binding.nameTextView.setOnClickListener {
 
                 val intent = Intent(context,DetailActivity::class.java)
                 intent.putExtra("url",url)

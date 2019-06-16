@@ -13,7 +13,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        window.statusBarColor = resources.getColor(R.color.white)
+        window.statusBarColor = resources.getColor(R.color.red)
 
 
         val url = intent.getStringExtra("url")

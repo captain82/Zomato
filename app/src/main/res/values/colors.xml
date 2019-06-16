@@ -33,9 +33,11 @@
     <color name="orange">#C8FFA500</color>
     <color name="yellow">#96FFF44F</color>
 
-    <color name="green1">#4CAF50</color>
-    <color name="red">#B5F44336</color>
-    <color name="red1">#DCA30F03</color>
 
+    <color name="green1">#4CAF50</color>
+
+    <color name="red">#cb202d</color>
+
+    <color name="red1">#DCA30F03</color>
 
 </resources>
