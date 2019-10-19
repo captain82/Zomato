@@ -1,4 +1,7 @@
 # Zomato
+
+LinkedIn Link :-  https://www.linkedin.com/posts/ankit-kumar-15561a151_programmers-android-architecture-activity-6546241078859751424-vlvz
+
 This Android app uses Zomato API to get restaurants,recipes,ratings,etc around the users Location.
 Implemented MVVM principle using LiveData,ViewModel,DataBinding and Android architecture components.
 Tools Uses:
